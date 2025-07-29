@@ -2,9 +2,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 ##x1 = np.linspace(0.0, 20.0)
-##x2 = np.linspace(0.0, 20.0)
+###x2 = np.linspace(0.0, 20.0)
 
-#!#y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
+##!#y1 = np.cos(2 * np.pi * x1) * np.exp(-x1)
 ###y2 = np.cos(2 * np.pi * x2)
 
 x_values = [1,5,7,15]
