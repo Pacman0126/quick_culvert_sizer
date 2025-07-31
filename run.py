@@ -42,7 +42,19 @@ def get_catchment_area_properties():
     print(' ')
     get_runoff_coefficient()
 
-    #print(Tc_Area)
+    global Tc_Q
+    Tc_Q = {}
+
+    Tc_Q = {Tc: round((runoff_coefficient * b / math.pow((Tc + d),e) * catchment_area),1)  for Tc in range(10,110,10)}
+
+    global assumed_flow_velocity
+    assumed_flow_velocity = 5.0
+
+    global Tc_A
+    Tc_A = {}
+
+    Tc_A = {Tc: round((runoff_coefficient * b / math.pow((Tc + d),e) * catchment_area / assumed_flow_velocity),1)  for Tc in range(10,110,10)}
+
 
     return
 
@@ -230,33 +242,106 @@ def get_runoff_coefficient():
 
     return
 
-      
+def get_box_culvert_options():
+       
+        max_box_height = 4
+        query = ''
+   
+        while True:
 
-          
+          try:
+            str_max_box_height = input("At this culvert location, what is the maximum height up to 10 the box culvert can be: ")
+            if(int(str_max_box_height) < 4 or int(str_max_box_height) > 10):
+                
+                if int(str_max_box_height) < 4:
+                   scenario = '1'
 
-     
+                elif int(str_max_box_height) > 10:
+                    scenario = '2'
+
+                #else:
+                   #max_box_height = int(str_max_box_height)
+                   #break
+
+                match scenario:
+                  case '1':
+
+                    query = input("Box culverts should have a minimum height of 4 ft. Would you like to use a different height (y/n): ")
+
+                    while True:
+                       try:
+                                             
+                        
+                          if(query == 'y' or query == 'Y'):
+                            break
+                          elif (query == 'n' or query == 'N'):
+                            break
 
 
+                       except:
+                        print("Invalid input. Must be y or n")
+                        continue
+                      
+                    if (query == 'n' or query == 'N'):
+                          break
+                      
+                    continue
 
+                  case '2':
+                      
+                      query = input("Precast box culcerts should not be more than 10 ft tall due to roadway lane widths while being delivered.\nWould you like to use a different height (y/n):")
+                      while True:
+                                               
+                        try:
+                          
+                          if(query == 'y' or query == 'Y'):
+                            break
+                          elif (query == 'n' or query == 'N'):
+                            break
 
-    
+                        except:
+                          print("Invalid input. Must be y or n")             
+                          continue
 
+                      if (query == 'n' or query == 'N'):
+                        break
+                      
+                      continue
+            else:
+              max_box_height = int(str_max_box_height)
+              print(' ')
+              break
+               
+
+          except:
+            print("Invalid input. Must be a number from 1, 2, 3,...10")
+            continue
+   
+        if (query == 'n' or query == 'N'):
+          return
+
+        print(f"maximum box height = {max_box_height}")
+        
 
 
 
 
    
+          
 
 
-
-
-    
 def main():
 
-    get_catchment_area_properties()
-    print(f"rainfall intensity (inches/hour) for times of concentration, Tc, of 10 min to 100 min: {Tc_Area}")
-    print(' ')
-    print(f"runoff coefficient: {runoff_coefficient}")
-    #return
+    #get_catchment_area_properties()
+    #print(f"rainfall intensity (inches/hour) for times of concentration, Tc, of 10 min to 100 min: {Tc_Area}")
+    #print(' ')
+    #print(f"runoff coefficient: {runoff_coefficient}")
+    #print(' ')
+    #print(f"runoff flows (cubic feet/second), Q, for times of concentration, Tc, of 10 min to 100 min: {Tc_Q}")
+    #print(' ')
+    #print(f"required culvert cross-sectional flow areas (square feet), A, for Q's for times of concentration, Tc, of 10 min to 100 min: {Tc_A}")
+    get_box_culvert_options()
+
+    return
 
 main()
