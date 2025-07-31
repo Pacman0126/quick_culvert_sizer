@@ -254,7 +254,7 @@ def get_runoff_coefficient():
 def main():
 
     get_catchment_area_properties()
-    print(f"rainfall intensity for times of concentration, Tc, of 10 min to 100 min: {Tc_Area}")
+    print(f"rainfall intensity (inches/hour) for times of concentration, Tc, of 10 min to 100 min: {Tc_Area}")
     print(' ')
     print(f"runoff coefficient: {runoff_coefficient}")
     #return
