@@ -244,7 +244,9 @@ def get_runoff_coefficient():
 
 def get_box_culvert_options():
        
-        max_box_height = 4
+        max_box_height = 0
+        initial_span = 4
+        initial_box_height = 4
         query = ''
    
         while True:
@@ -259,10 +261,6 @@ def get_box_culvert_options():
                 elif int(str_max_box_height) > 10:
                     scenario = '2'
 
-                #else:
-                   #max_box_height = int(str_max_box_height)
-                   #break
-
                 match scenario:
                   case '1':
 
@@ -275,6 +273,7 @@ def get_box_culvert_options():
                           if(query == 'y' or query == 'Y'):
                             break
                           elif (query == 'n' or query == 'N'):
+                            print("Try circular pipe instead. This appliaction is for box culverts only.")
                             break
 
 
@@ -309,6 +308,8 @@ def get_box_culvert_options():
                       continue
             else:
               max_box_height = int(str_max_box_height)
+              #initial_span = max_box_height
+
               print(' ')
               break
                
@@ -321,6 +322,16 @@ def get_box_culvert_options():
           return
 
         print(f"maximum box height = {max_box_height}")
+
+        for Tc in range(10 ,110, 10):
+
+          for height in range(4, max_box_height + 1, 1):
+           #print(span)
+
+
+
+            for width in range(height, 11, 1):
+              print(f"Tc = {Tc}: {width} x {height}")
         
 
 
