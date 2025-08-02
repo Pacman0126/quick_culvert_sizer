@@ -1,8 +1,5 @@
 import numpy as np
-#from matplotlib import pylab as pl
 import math
-#import decimal
-#import pylab as pl
 import pprint
 
 
@@ -45,15 +42,6 @@ def get_catchment_area_properties(flow_velocity = None):
     b = 68.99
     d = 9.76
 
-    Tc_Area = {Tc: round(b / math.pow((Tc + d),e),2)  for Tc in range(10,110,10)}
-    print(' ')
-    get_runoff_coefficient()
-
-    global Tc_Q
-    Tc_Q = {}
-
-    Tc_Q = {Tc: round((runoff_coefficient * b / math.pow((Tc + d),e) * catchment_area),1)  for Tc in range(10,110,10)}
-
     global assumed_flow_velocity
 
     if(flow_velocity is None):
@@ -63,7 +51,15 @@ def get_catchment_area_properties(flow_velocity = None):
     else:
        assumed_flow_velocity = flow_velocity
 
-    
+
+    Tc_Area = {Tc: round(b / math.pow((Tc + d),e),2)  for Tc in range(10,110,10)}
+    print(' ')
+    get_runoff_coefficient()
+
+    global Tc_Q
+    Tc_Q = {}
+
+    Tc_Q = {Tc: round((runoff_coefficient * b / math.pow((Tc + d),e) * catchment_area),1)  for Tc in range(10,110,10)}
 
     global Tc_A
     Tc_A = {}
@@ -130,7 +126,7 @@ def get_runoff_coefficient():
     """
     Watershed soil infiltration characteristics.
     """
-    #Ci
+  
     Ci = 0.0
 
     print("[1] - Extreme: No effective soil cover; either rock or thin soil mantle of negligible infiltration capacity")
@@ -172,7 +168,7 @@ def get_runoff_coefficient():
     """
     Watershed Vegetal cover characteristics.
     """
-    #Cv
+  
     Cv = 0.0
 
     print("[1] - Extreme: No effective plant cover, bare or very sparse cover")
@@ -257,15 +253,16 @@ def get_runoff_coefficient():
 
     return
 
-def get_box_culvert_options():
+def get_box_culvert_options(flow_velocity = 5.0):
        
         max_box_height = 0
-        initial_span = 4
-        initial_box_height = 4
-        query = ''
-        query2
 
-        query2 = input(f"The default assumed flow velocity for box culverts is {assumed_flow_velocity} ft/s. \nA minimum of 2.5 ft/s is required to be self cleaning, a maximum of 8.0 ft/s is allowed to prevent downstream ersion damage\nThe higher the velocity, the smalller the box solutions. Enter new value or press enter to continue with default value: ")
+        query = ''
+        query2 = ''
+
+        assumed_flow_velocity = flow_velocity
+
+        query2 = input(f"The default assumed flow velocity for box culverts is {assumed_flow_velocity} ft/s. \nA minimum of 2.5 ft/s is required to be self cleaning, a maximum of 8.0 ft/s is allowed to prevent downstream erosion damage\nThe higher the velocity, the smalller the box solutions. Enter new value or press enter to continue with default value: ")
 
         while True:
             try:                                              
@@ -345,7 +342,6 @@ def get_box_culvert_options():
                       continue
             else:
               max_box_height = int(str_max_box_height)
-              #initial_span = max_box_height
 
               print(' ')
               break
@@ -361,7 +357,7 @@ def get_box_culvert_options():
         print(f"maximum box height = {max_box_height}")
 
         """
-        Manning's formula channel flow: Q = A * 1.486/n * R^(2/3) * S^(1/2)
+        Manning's formula for open channel flow in culvert structures and water channels: Q = A * 1.486/n * R^(2/3) * S^(1/2)
 
         Q = Discharge (cu. ft./sec.)
         A = Cross-sectional Area of Flow (sq. ft.)
@@ -399,9 +395,6 @@ def get_box_culvert_options():
 
 
           for height in range(4, max_box_height + 1, 1):
-           #print(span)
-
-
 
             for width in range(height, 11, 1):
 
@@ -477,42 +470,32 @@ def get_box_culvert_options():
             best_design_for_Tc[x] = smallest_box_design_for_Tc
             print(f"Most ecenomical box for Tc = {x} is {y[2]} - {smallest_box_design_for_Tc[0]} ft span x {smallest_box_design_for_Tc[1]} ft height")
 
+        print('')
+        query1 = input("Do you have any more catchments to consider (y/n): ")
 
-            query1 = input("Do you have any more catchments to consider (y/n): ")
+        while True:
+            try:                                      
+            
+              if(query1 == 'y' or query1 == 'Y'):
+                get_catchment_area_properties()
+                get_box_culvert_options()
 
-            while True:
-                try:                                      
-                
-                  if(query1 == 'y' or query1 == 'Y'):
-                    get_catchment_area_properties()
-                    get_box_culvert_options()
-
-                    break
-                  elif (query1 == 'n' or query1 == 'N'):
-                 
-                    break
-
-                except:
-                  print("Invalid input. Must be y or n")
-                continue
+                break
+              elif (query1 == 'n' or query1 == 'N'):
               
-            if (query1 == 'n' or query1 == 'N'):
-                  break
-              
-            continue
+                break
+
+            except:
+              print("Invalid input. Must be y or n")
+              continue
+            
+
 
 def main():
 
     get_catchment_area_properties()
-    #print(f"rainfall intensity (inches/hour) for times of concentration, Tc, of 10 min to 100 min: {Tc_Area}")
-    #print(' ')
-    #print(f"runoff coefficient: {runoff_coefficient}")
-    #print(' ')
-    #print(f"runoff flows (cubic feet/second), Q, for times of concentration, Tc, of 10 min to 100 min: {Tc_Q}")
-    #print(' ')
-    #print(f"required culvert cross-sectional flow areas (square feet), A, for Q's for times of concentration, Tc, of 10 min to 100 min: {Tc_A}")
-    get_box_culvert_options()
-    
+
+    get_box_culvert_options()    
 
     return
 
