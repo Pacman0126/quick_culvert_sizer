@@ -6,7 +6,7 @@ import math
 import pprint
 
 
-def get_catchment_area_properties():    
+def get_catchment_area_properties(flow_velocity = None):    
     """
     The catchment charactersistics for the catchment of interest are calculated based on user input of catchment area
     """
@@ -55,7 +55,15 @@ def get_catchment_area_properties():
     Tc_Q = {Tc: round((runoff_coefficient * b / math.pow((Tc + d),e) * catchment_area),1)  for Tc in range(10,110,10)}
 
     global assumed_flow_velocity
-    assumed_flow_velocity = 5.0
+
+    if(flow_velocity is None):
+       
+      assumed_flow_velocity = 5.0
+
+    else:
+       assumed_flow_velocity = flow_velocity
+
+    
 
     global Tc_A
     Tc_A = {}
@@ -255,7 +263,29 @@ def get_box_culvert_options():
         initial_span = 4
         initial_box_height = 4
         query = ''
-   
+        query2
+
+        query2 = input(f"The default assumed flow velocity for box culverts is {assumed_flow_velocity} ft/s. \nA minimum of 2.5 ft/s is required to be self cleaning, a maximum of 8.0 ft/s is allowed to prevent downstream ersion damage\nThe higher the velocity, the smalller the box solutions. Enter new value or press enter to continue with default value: ")
+
+        while True:
+            try:                                              
+            
+              if(query2 == '' or query2 == ' '):
+                
+                break
+              
+              else:
+                 assumed_flow_velocity = float(query2)
+
+                 if(float(query2) < 2.5 or float(query2) > 8.0):
+                    print("Enter value between 2.5 and 8.0")
+                    continue
+                 break           
+
+            except:
+              print("Invalid input. Must be number.")
+            continue
+
         while True:
 
           try:
@@ -431,7 +461,9 @@ def get_box_culvert_options():
         box culvert solution in each time of concentration, Tc, and collects them into a dictionary with key=Tc, value=(width,height)
         """
 
-
+        print(f"Catchment area size = {catchment_area} acres")
+        print(f"Composite runoff coefficient for this catchment area = {runoff_coefficient}")
+        print("")
 
         for x in range(10 ,110,10): # x is the time of concentration Tc
           
@@ -443,28 +475,31 @@ def get_box_culvert_options():
 
             smallest_box_design_for_Tc = min(best_design_options,key=best_design_options.get)
             best_design_for_Tc[x] = smallest_box_design_for_Tc
-            print(f"Most ecenomical box for Tc = {x} is {smallest_box_design_for_Tc[0]} ft span x {smallest_box_design_for_Tc[1]} ft height")
+            print(f"Most ecenomical box for Tc = {x} is {y[2]} - {smallest_box_design_for_Tc[0]} ft span x {smallest_box_design_for_Tc[1]} ft height")
 
-          
 
-              
+            query1 = input("Do you have any more catchments to consider (y/n): ")
+
+            while True:
+                try:                                      
+                
+                  if(query1 == 'y' or query1 == 'Y'):
+                    get_catchment_area_properties()
+                    get_box_culvert_options()
+
+                    break
+                  elif (query1 == 'n' or query1 == 'N'):
                  
+                    break
+
+                except:
+                  print("Invalid input. Must be y or n")
+                continue
               
-
-
-
-
-
-          
-
-        
-
-
-
-
-   
-          
-
+            if (query1 == 'n' or query1 == 'N'):
+                  break
+              
+            continue
 
 def main():
 
