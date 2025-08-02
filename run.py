@@ -1,6 +1,6 @@
 import numpy as np
 import math
-import pprint
+
 
 
 def get_catchment_area_properties(flow_velocity = None):    
@@ -82,7 +82,7 @@ def get_runoff_coefficient():
     """
     Watershed relief characteristics.
     """
-    #Cr
+
     Cr = 0.0
 
     print("[1] - Extreme: Steep, rugged terrain with average slopes above 30%")
