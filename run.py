@@ -423,21 +423,18 @@ def get_box_culvert_options(flow_velocity=5.0):
     query1 = input("Do you have any more catchments to consider (y/n): ")
 
     while True:
-        try:                                  
+        if (query1 == 'y' or query1 == 'Y'):
+            get_catchment_area_properties()
+            get_box_culvert_options()
+
+            break
+        elif (query1 == 'n' or query1 == 'N'):
         
-            if (query1 == 'y' or query1 == 'Y'):
-                get_catchment_area_properties()
-                get_box_culvert_options()
+            break
+        
+        else:
+            query1 = input("Do you have any more catchments to consider (y/n):")             
 
-                break
-            elif (query1 == 'n' or query1 == 'N'):
-            
-                break
-
-        except ValueError:
-            print("Invalid input. Must be y or n")
-            continue
-            
 
 def main():
 
