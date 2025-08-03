@@ -72,17 +72,87 @@ In this section, you should go over the different parts of your project, and des
 
 ## Testing 
 
-1. User input and results
-![Alt text](/images/input_values.png "Navbar and header")
+### User input
+  - __Input Catchment Area Size__
 
-2. Home page with intro and mission statement
+      ![Alt text](/images/input_catchment_area.png)
+
+  - __Input Catchment Area Incorrect__
+
+      ![Alt text](/images/input_catchment_area_incorrect.png)
+
+  - __Input Catchment Area Correct__
+
+      ![Alt text](/images/input_catchment_area_correct.png)
+
+  - __Input Catchment Area Relief Incorreect__
+
+      ![Alt text](/images/input_catchment_area_relief_incorrect.png)
+
+  - __Input Catchment Area Relief__
+
+      ![Alt text](/images/input_catchment_area_relief.png)
+
+  - __Input Catchment Area Soil Infiltration__
+
+      ![Alt text](/images/input_catchment_area_soil_infiltration.png)
+
+  - __Input Catchment Area Soil Infiltration Incorrect__
+
+      ![Alt text](/images/input_catchment_area_soil_infiltration_incorrect.png)
+
+  - __Input Catchment Area Soil Infiltration Correct__
+      ![Alt text](/images/input_catchment_area_soil_infiltration_correct.png)
+
+  - __Input Catchment Area Soil Vegetation Cover Incorrect__
+      ![Alt text](/images/input_catchment_area_vegetation_incorrect.png)
+
+  - __Input Catchment Area Soil Vegetation Cover Correct__
+      ![Alt text](/images/input_catchment_area_vegetation_correct.png)
+
+  - __Input Catchment Area Surface Storaage Incorrect__
+      ![Alt text](/images/input_catchment_area_surface_storage_incorrect.png)
+
+  - __Input Catchment Area Surface Storaage Correct__
+      ![Alt text](/images/input_catchment_area_surface_storage_correct.png)
+
+  - __Input Assumed Flow Velocity Incorrect__
+      ![Alt text](/images/input_assumed_flow_velocity_incorrect.png)
+
+  - __Input Assumed Flow Velocity Correct__
+      ![Alt text](/images/input_assumed_flow_velocity_correct.png)
+
+  - __Input Maximum Box Height__
+      ![Alt text](/images/input_max_box_height.png)
+
+
+  - __Input Maximum Box Height Incorrect__
+      ![Alt text](/images/input_max_box_height_incorrect.png)
+
+  - __Input Maximum Box Height Incorrect Repeat = No__
+      ![Alt text](/images/input_max_box_height_correct_repeat_no.png)
+
+  - __Results Repeat = Yes__
+      ![Alt text](/images/repeat_app_yes.png)
+
+  - __Results Repeat = No__
+      ![Alt text](/images/repeat_app_no.png)
+
+  - __Expected Results__
+
+      Since there can be hundreds of iteration it is only feasible to take a random iteration
+      and compare it to an Excel solution for that iteration. A random iteration sample gives
+      the results expected.
+
+      ![Alt text](/images/_expected_results.png)
+
 
 ### Validator Testing 
 
-- HTML
-  - No errors according to [W3C validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fcode-institute-org.github.io%2Flove-running-2.0%2Findex.html)
-- CSS
-  - No errors according to [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fvalidator.w3.org%2Fnu%2F%3Fdoc%3Dhttps%253A%252F%252Fcode-institute-org.github.io%252Flove-running-2.0%252Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#css)
+- Flake8
+  - No significant errors according to Flake8 Linting. A number of 'line too long' messages. 
+    Doing research on Google, this seems to be a legacy message from the past which is no longer relevant today.
+
 
 ### Unfixed Bugs
 
@@ -97,7 +167,39 @@ This section should describe the process you went through to deploy the project 
   - From the source section drop-down menu, select the Master Branch
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
 
-The live link can be found here - https://code-institute-org.github.io/love-running-2.0/index.html 
+The live link can be found here - https://code-institute-org.github.io/love-running-2.0/index.html
+
+- If not available register and sign up for a Heroku account
+- From dashboard click "Create New App" and enter name of app
+
+    ![Alt text](/images/Heroko_dashboard_create_new_app.png)
+
+- Name the app, select region, click "Create app"
+
+    ![Alt text](/images/Heroko_create_app.png)
+
+- Name the app, select region, click "Create app"
+
+    ![Alt text](/images/Heroko_connect_app_to_github_repository.png)
+
+- Click Github, search for your Github repository
+
+    ![Alt text](/images/Heroko_connect_app_to_github_repository.png)
+
+- Using this already deployed app as an example, on the dashboard click on "Settings" and navigate  to "Buildpacks and add these items in this order while clicking "Add buildpack".
+
+    ![Alt text](/images/Heroko_settings_buildpacks.png)
+
+- By now you should be connected to Github, select "Deploy" from dashboard, and then click "Deploy branch" from "Manual deploy" section
+
+    ![Alt text](/images/Heroko_deploy_app.png)
+
+
+
+
+
+
+
 
 
 ## Credits 
