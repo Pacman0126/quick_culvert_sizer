@@ -374,43 +374,40 @@ def get_box_culvert_options(flow_velocity = 5.0):
         slopes = []
         slopes = [round(0.0120 + (s * 0.0005),4) for s in range(1,37)]
 
-        solutions = {}
-        
-
-        boxes = []
-        Tc_design_options = [()]
-
-        
-
-        design_options = {} #for iterations of width loop
-        all_design_options = {} #for iterations of Tc loop
-
-
         barrel_count = 0
 
-        S_Qcapacity_Tc_10_100 = {}
-        S_Barrels_Tc_10_100 = {}
+#vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv begin main algorithim vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#
 
-        global Height
-        global Width
+        """
+        The code block below now drills down on all the solution possibilites found above and finds the smallest(i.e. most ecenoical)
+        box culvert solution in each time of concentration, Tc, and collects them into a dictionary with key=Tc, value=(width,height)
+        """
 
-        Height = 4
-        Width = 4
-
-######################################################################################################
+        print(f"Catchment area size = {catchment_area} acres")
+        print(f"Composite runoff coefficient for this catchment area = {runoff_coefficient}")
+        print("")
 
         box_dimen_Qcap = {}
         box_dimen_total_cross_sectional_area = {}
+        box_dimen_number_of_barrels = {}
+
         S_Barrels = {}
 
         for Tc in range(10,110,10):
 
-          for h in range(4,max_box_height + 1):
+          for box_height in range(4,max_box_height + 1, 1):
             
-            for s in range(h, 11):
+            for span in range(box_height, 11, 1):
 
-              A = s * (h - 1.5)
-              P = (h - 1.5) * 2 + s
+              """
+              The code block below iterates thru S_Barrels{} and extracts the number of barrrels required for each slope condition 1.25% to 3.00%
+              and finds the number of barrels that appears in this range. Then adds the maximum number of occurences (e.g. out of 4,5,6 barrels 
+              5 appears 20 times out of 36 slope conditions). The box size 5 ft x 4 ft as key with value=3 is added to dicctionary of solutions{}
+              as (5,4):3
+              """
+
+              A = span * (box_height - 1.5)
+              P = (box_height - 1.5) * 2 + span
               R = A/P
 
               for slope in slopes:
@@ -420,10 +417,8 @@ def get_box_culvert_options(flow_velocity = 5.0):
 
                 S_Barrels.update({slope:math.ceil(Tc_A[Tc]/Areq)})
 
-              box_dimen_Qcap.update({(s,h):S_Barrels})
+              box_dimen_Qcap.update({(span,box_height):S_Barrels})
 
-              
-                #S_Barrels[slope] = math.ceil(Tc_A[30]/Areq)
               number_of_barrels = [] #list of all barrel counts in slope range
               barrel_count_vs_frequency = {}
 
@@ -442,125 +437,18 @@ def get_box_culvert_options(flow_velocity = 5.0):
 
               most_frequent_barrel_num = max(barrel_count_vs_frequency, key=barrel_count_vs_frequency.get)
                     
-              box_dimen_total_cross_sectional_area.update({(s,h):most_frequent_barrel_num *s * h})    
+              box_dimen_total_cross_sectional_area.update({(span,box_height):most_frequent_barrel_num *span * box_height})
+              box_dimen_number_of_barrels.update({(span,box_height):most_frequent_barrel_num})    
               S_Barrels = {} 
 
-                  #barrels_num_of_solutions.append(number_of_barrels.count(x)) #track number of barrels in the slope range 1.25% to 3.00%
-                  #num_of_solutions_per_barrel_count[number_of_barrels.count(x)] = math.ceil(required_flow_area_in_box_for_Tc/ (x * A)) #store in dict where key=num of times x appears value = number of barrels
-              
+          barrel_count = box_dimen_number_of_barrels.get((span,box_height))   
           most_econonomical_design = min(box_dimen_total_cross_sectional_area, key=box_dimen_total_cross_sectional_area.get)
-          print(f"most_econonomical_design for Tc = {Tc} is {most_frequent_barrel_num} - {most_econonomical_design[0]} ft (height) x {most_econonomical_design[1]} ft (span)" )
+
+          print(f"most_econonomical_design for Tc = {Tc} is {barrel_count} - {most_econonomical_design[0]} ft (span) x {most_econonomical_design[1]} ft (height)" )
           box_dimen_total_cross_sectional_area = {}
-               
+          box_dimen_number_of_barrels = {}
 
-              #required_flow_area_in_box_for_Tc = Tc_A[10]
-
-              #S_Qcapacity = {S: round((1.486/n) * A * math.pow(R,(2/3)) * math.pow(S,0.5),1) for S in slopes}
-              #S_Qcapacity_Tc_10_100[10] = S_Qcapacity
-              #S_Barrels = {S: math.ceil(required_flow_area_in_box_for_Tc /((1.486/n) * A * math.pow(R,(2/3)) * math.pow(S,0.5))) for S in slopes}
-              #S_Barrels_Tc_10_100[10] = S_Barrels
-
-
-
-#############################################################################################################################
-        for Tc in range(10 ,110, 10):
-
-          
-          
-
-
-
-          for height in range(4, max_box_height + 1, 1):
-
-            Height = height
-
-            for width in range(height, 11, 1):
-
-              Width = width
-
-              """
-              The code block below iterates thru S_Barrels{} and extracts the number of barrrels required for each slope condition 1.25% to 3.00%
-              and finds the number of barrels that appears in this range. Then adds the maximum number of occurences (e.g. out of 4,5,6 barrels 
-              5 appears 20 times out of 36 slope conditions). The box size 5 ft x 4 ft as key with value=20 is added to dicctionary of solutions{}
-              as (5,4):20
-
-
-              """
-              number_of_barrels = []
-              barrels_required = []
-              
-
-              for key, value in S_Barrels.items():
-                number_of_barrels.append(value)
-
-              barrels_num_of_solutions = []
-              num_of_solutions_per_barrel_count = {}
-                             
-    
-              for x in range(1,11):  #iterate thru width number of required barrels 1 to 10. typically not more than 6 barrels
-                if(number_of_barrels[x] == 0):
-                    continue
-                 
-                if(number_of_barrels.count(x) == 0):
-                    continue
-                
-                barrels_required.append(math.ceil(required_flow_area_in_box_for_Tc/ (x * A)))
-
-                barrels_num_of_solutions.append(number_of_barrels.count(x)) #track number of barrels in the slope range 1.25% to 3.00%
-                num_of_solutions_per_barrel_count[number_of_barrels.count(x)] = math.ceil(required_flow_area_in_box_for_Tc/ (x * A)) #store in dict where key=num of times x appears value = number of barrels
-                     
-
-              solutions[(width,height)] = max(barrels_num_of_solutions) #??
-
-
-              barrel_count = num_of_solutions_per_barrel_count.get(max(num_of_solutions_per_barrel_count))
-
-              if( max(barrels_num_of_solutions) >= 24): #if number of solutions (i.e. number of barrels appears in more than 2/3 of slope conditions) then select as a design option)
-                boxes.append((width,height))
-                design_options[(width,height)] = barrel_count
-                Tc_design_options.append((Tc, (width, height), barrel_count))
-
-            required_flow_area_in_box_for_Tc = Tc_A[Tc]
-
-            A = width * (height - 1.5)
-            P = (height - 1.5) * 2 + width
-            R = A/P
-
-            S_Qcapacity = {S: round((1.486/n) * A * math.pow(R,(2/3)) * math.pow(S,0.5),1) for S in slopes}
-            S_Qcapacity_Tc_10_100[Tc] = S_Qcapacity
-            S_Barrels = {S: math.ceil(required_flow_area_in_box_for_Tc /((1.486/n) * A * math.pow(R,(2/3)) * math.pow(S,0.5))) for S in slopes}
-            S_Barrels_Tc_10_100[Tc] = S_Barrels 
-
-          all_design_options[Tc] = design_options       
-
-        best_design_options = {}
-        design_options_for_Tc =[()]
-        Tc_design_options.pop(0)
-        best_design_for_Tc = {}
-
-        """
-        The code block below now drills down on all the solution possibilites found above and finds the smallest(i.e. most ecenoical)
-        box culvert solution in each time of concentration, Tc, and collects them into a dictionary with key=Tc, value=(width,height)
-        """
-
-        print(f"Catchment area size = {catchment_area} acres")
-        print(f"Composite runoff coefficient for this catchment area = {runoff_coefficient}")
-        print("")
-
-        for x in range(10 ,110,10): # x is the time of concentration Tc
-          
-            for y in Tc_design_options: # y is an item in the list of tuples which are all the design possibilities of (width,height) and number of barrels
-
-              if(y[0]== x):
-                 design_options_for_Tc.append((y[0], y[1], y[2]))
-                 best_design_options[y[1]] = y[1][0] * y[1][1] * y[2]
-
-            smallest_box_design_for_Tc = min(best_design_options,key=best_design_options.get)
-            best_design_for_Tc[x] = smallest_box_design_for_Tc
-
-            barrel_count = math.ceil(Tc_A[x]/((smallest_box_design_for_Tc[1]-1.5) * smallest_box_design_for_Tc[0] )) 
-            
-            print(f"Most ecenomical box for Tc = {x} is {barrel_count} - {smallest_box_design_for_Tc[0]} ft span x {smallest_box_design_for_Tc[1]} ft height")
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ end main algorithm ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 
         print('')
         query1 = input("Do you have any more catchments to consider (y/n): ")
