@@ -72,7 +72,10 @@ In this section, you should go over the different parts of your project, and des
 
 ## Testing 
 
+1. User input and results
+![Alt text](/images/input_values.png "Navbar and header")
 
+2. Home page with intro and mission statement
 
 ### Validator Testing 
 
