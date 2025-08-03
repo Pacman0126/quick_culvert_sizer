@@ -274,11 +274,17 @@ def get_box_culvert_options(flow_velocity = 5.0):
                 break
               
               else:
-                 assumed_flow_velocity = float(query2)
-
+                 
                  if(float(query2) < 2.5 or float(query2) > 8.0):
+                    print('')
                     print("Enter value between 2.5 and 8.0")
+                    print('')
+                    query2 = input(f"The default assumed flow velocity for box culverts is {assumed_flow_velocity} ft/s. \nA minimum of 2.5 ft/s is required to be self cleaning, a maximum of 8.0 ft/s is allowed to prevent downstream erosion damage\nThe higher the velocity, the smalller the box solutions. Enter new value or press enter to continue with default value: ")
+
                     continue
+                 
+                 assumed_flow_velocity = float(query2)                 
+
                  break           
 
             except:
