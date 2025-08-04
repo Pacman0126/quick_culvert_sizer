@@ -1,74 +1,14 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# quick-culvert-sizer
 
-Welcome,
+quick-culvert-sizer is intended for a user with a background in civil engineering, especially for those in a drainage and/or infrastructure. For others, this may only be a curious novelty.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+In the civil engineering consulting sector, chasing new projects with proposals is routine. In this phase, the team needs to put together a preliminary design for the tender process of a RFP(Request for Proposal) and submit a preliminary cost estimate as a part of this. At this stage, project engineers will need to create a drainage area map from contour maps which can take a few days. As part of this, a diligent civil engineer will analyse and comupute the time-of-concentration (Tc) for each drainage area. The time-of-concentration is the time in minutes for a raindrop to travel, from the most remote point and most likely path, to the point of intereset. With quick-culvert-sizer and once the time-of-concentration's are known (generally a few days) the user can use the results of this app to quickly select a reasonable design. No more "seat-of-the-pants" risky guessing. 
 
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
-
-# finance-term-finder
-
-Finance Term Finder is a simple tool intended to help people make some decisions about loan financing before approaching a lender in order to make better informed decisions. What makes this site particularly useful is that the user starts with a preferred monthly payment for a finance amount then, based on the lenders annaul interest rate, it calculates the number of payments. The user can then use the controls to make adjustments to the monthly payment. This is the reverse of what banks do, where they start with a finance amount and number of payments and calculate your monthly payments. 
+Incorrectly sizing a box culvert can lead to costly errors in the preliminary cost estimate (i.e. $250,000 vs maybe $50,000). Using this app, the user can get a "worst-case" but accurate design of the box-culvert required (if any). If the project proposal was successful (i.e. new project budget has been won), the engineering team can go to detailed design with much more effort and using quick-culvert-sizer results as a starting point. During detailed design, there should be no nasty surprises and the box-culvert size can only be smaller (i.e. cheaper). Also, phsical constraints can be managed and since if this is a roadway project and culvert geometry for roadway projects are the driving factor of vertical roadway alignment geometry. In turn, the vertical roadway geometry is the driver for earthwork (i.e. cut and fill quantities) which can be extremely expensive and cause a project to lose a lot of money.
 
 ## Features 
 
-In this section, you should go over the different parts of your project, and describe each in a sentence or so. You will need to explain what value each of the features provides for the user, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
-
-### Existing Features
-
-- __Initial User Input Fields__
-
-  - The amount you want to finance: number without currency symbol
-  - The monthly payment not to exceed: number without currency symbol
-  - Lender's annual interest rate (e.g. 3.00): number without % symbol
-
-- __Calculate Number of Payments Button__
-
-  - This calculates the monthly payment based on initial user inputs and displays in the text element above
-  - After clicking, this button dissapears and an Adjust Terms button appears below to then focus the user on the adjustment controls below
-
-- __Range slider bar__
-
-  - This slider becomes enabled when the top radio button is selected 
-  - Moving this slider automatically recalculates the user's monthly payment based on the number of payments selected. 
-
-- __Make adjustments: (radio checks group)__
-
-  - Adjust maximum payment with slider above: when selected, the adjust button recalculates payment based on slider value
-  - Adjust max payment down to nearest 12 mon interval: when selected, the adjust button recalculates payment rounding payment intervals down to the nearest 12 months (e.g. 52 becomes 48)
-  - Adjust max payment up to nearest 12 mon interval: when selected, the adjust button recalculates payment rounding payment intervals up to the nearest 12 months (e.g. 52 becomes 60)
-
-
-- __Adjust Terms Button__ 
-
-  - The footer section includes links to the relevant social media sites for Love Running. The links will open to a new tab to allow easy navigation for the user. 
-  - The footer is valuable to the user as it encourages them to keep connected via social media
-
+Command line driven app that accetps user input for a catchment area and runs up to 490 iterations to calculate the best box culvert design options and outputs to terminal.
 
 ## Testing 
 
@@ -150,8 +90,7 @@ In this section, you should go over the different parts of your project, and des
 ### Validator Testing 
 
 - Flake8
-  - No significant errors according to Flake8 Linting. A number of 'line too long' messages. 
-    Doing research on Google, this seems to be a legacy message from the past which is no longer relevant today.
+  - No significant errors according to Flake8 Linting. A number of 'line too long' messages. Doing research on Google, this seems to be a legacy message from the past which is no longer relevant today.
 
 
 ### Unfixed Bugs
@@ -194,33 +133,26 @@ The live link can be found here - https://code-institute-org.github.io/love-runn
 
     ![Alt text](/images/Heroko_deploy_app.png)
 
+- Once successfully deployed, open app in browser terminal
 
+    ![Alt text](/images/Heroku_once_deployed_open_app.png)
 
-
-
-
-
+    ![Alt text](/images/Heroku_running_app.png)
 
 
 ## Credits 
 
-In this section you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism. 
-
-You can break the credits section up into Content and Media, depending on what you have included in your project. 
+Texas Department of Transportation - Hydraulic Design Manual
+NOAA National Weather Service https://hdsc.nws.noaa.gov/pfds/
+Code Institute
 
 ### Content 
 
-- Readme from Love Running was used as template
-- Instructions on how to implement form validation on the Sign Up page was taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
+- Readme from Love Sandwiches was used as template
 
 ### Media
 
-- The photos used on the home and sign up page are from This Open Source site
-- The images used for the gallery page were taken from this other open source site
-
-
-Congratulations on completing your Readme, you have made another big stride in the direction of being a developer! 
+None 
 
 ## Other General Project Advice
 
@@ -232,12 +164,6 @@ Below you will find a couple of extra tips that may be helpful when completing y
 - When naming the files in your project directory, make sure to consider meaningful naming of files, point to specific names and sections of content.
   - For example, instead of naming an image used ‘image1.png’ consider naming it ‘landing_page_img.png’. This will ensure that there are clear file paths kept. 
 
-- Do some extra research on good and bad coding practices, there are a handful of useful articles to read, consider reviewing the following list when getting started:
-  - [Writing Your Best Code](https://learn.shayhowe.com/html-css/writing-your-best-code/)
-  - [HTML & CSS Coding Best Practices](https://medium.com/@inceptiondj.info/html-css-coding-best-practice-fadb9870a00f)
-  - [Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html#General)
-
-Getting started with your Portfolio Projects can be daunting, planning your project can make it a lot easier to tackle, take small steps to reach the final outcome and enjoy the process! 
 
 
 
