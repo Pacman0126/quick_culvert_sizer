@@ -6,6 +6,12 @@ In the civil engineering consulting sector, chasing new projects with proposals 
 
 Incorrectly sizing a box culvert can lead to costly errors in the preliminary cost estimate (i.e. $250,000 vs maybe $50,000). Using this app, the user can get a "worst-case" but accurate design of the box-culvert required (if any). If the project proposal was successful (i.e. new project budget has been won), the engineering team can go to detailed design with much more effort and using quick-culvert-sizer results as a starting point. During detailed design, there should be no nasty surprises and the box-culvert size can only be smaller (i.e. cheaper). Also, phsical constraints can be managed and since if this is a roadway project and culvert geometry for roadway projects are the driving factor of vertical roadway alignment geometry. In turn, the vertical roadway geometry is the driver for earthwork (i.e. cut and fill quantities) which can be extremely expensive and cause a project to lose a lot of money.
 
+Here is a flowchart of the process:
+
+![Alt text](/images/flowhart.png)
+
+
+
 ## Features 
 
 Command line driven app that accetps user input for a catchment area and runs up to 490 iterations to calculate the best box culvert design options and outputs to terminal.
