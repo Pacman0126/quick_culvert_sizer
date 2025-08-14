@@ -9,7 +9,7 @@ Incorrectly sizing a box culvert can lead to costly errors in the preliminary co
 
 Here is a flowchart of the process:
 
-![Alt text](images/flowhart.png)
+![Alt text](images/flowhart.PNG)
 
 
 
@@ -22,68 +22,68 @@ Command line driven app that accetps user input for a catchment area and runs up
 ### User input
   - __Input Catchment Area Size__
 
-      ![Alt text](images/input_catchment_area.png)
+      ![Alt text](images/input_catchment_area.PNG)
 
   - __Input Catchment Area Incorrect__
 
-      ![Alt text](images/input_catchment_area_incorrect.png)
+      ![Alt text](images/input_catchment_area_incorrect.PNG)
 
   - __Input Catchment Area Correct__
 
-      ![Alt text](images/input_catchment_area_correct.png)
+      ![Alt text](images/input_catchment_area_correct.PNG)
 
   - __Input Catchment Area Relief Incorreect__
 
-      ![Alt text](images/input_catchment_area_relief_incorrect.png)
+      ![Alt text](images/input_catchment_area_relief_incorrect.PNG)
 
   - __Input Catchment Area Relief__
 
-      ![Alt text](images/input_catchment_area_relief.png)
+      ![Alt text](images/input_catchment_area_relief.PNG)
 
   - __Input Catchment Area Soil Infiltration__
 
-      ![Alt text](images/input_catchment_area_soil_infiltration.png)
+      ![Alt text](images/input_catchment_area_soil_infiltration.PNG)
 
   - __Input Catchment Area Soil Infiltration Incorrect__
 
-      ![Alt text](images/input_catchment_area_soil_infiltration_incorrect.png)
+      ![Alt text](images/input_catchment_area_soil_infiltration_incorrect.PNG)
 
   - __Input Catchment Area Soil Infiltration Correct__
-      ![Alt text](images/input_catchment_area_soil_infiltration_correct.png)
+      ![Alt text](images/input_catchment_area_soil_infiltration_correct.PNG)
 
   - __Input Catchment Area Soil Vegetation Cover Incorrect__
-      ![Alt text](images/input_catchment_area_vegetation_incorrect.png)
+      ![Alt text](images/input_catchment_area_vegetation_incorrect.PNG)
 
   - __Input Catchment Area Soil Vegetation Cover Correct__
-      ![Alt text](images/input_catchment_area_vegetation_correct.png)
+      ![Alt text](images/input_catchment_area_vegetation_correct.PNG)
 
   - __Input Catchment Area Surface Storaage Incorrect__
-      ![Alt text](images/input_catchment_area_surface_storage_incorrect.png)
+      ![Alt text](images/input_catchment_area_surface_storage_incorrect.PNG)
 
   - __Input Catchment Area Surface Storaage Correct__
-      ![Alt text](images/input_catchment_area_surface_storage_correct.png)
+      ![Alt text](images/input_catchment_area_surface_storage_correct.PNG)
 
   - __Input Assumed Flow Velocity Incorrect__
-      ![Alt text](images/input_assumed_flow_velocity_incorrect.png)
+      ![Alt text](images/input_assumed_flow_velocity_incorrect.PNG)
 
   - __Input Assumed Flow Velocity Correct__
-      ![Alt text](images/input_assumed_flow_velocity_correct.png)
+      ![Alt text](images/input_assumed_flow_velocity_correct.PNG)
 
   - __Input Maximum Box Height__
-      ![Alt text](images/input_max_box_height.png)
+      ![Alt text](images/input_max_box_height.PNG)
 
 
   - __Input Maximum Box Height Incorrect__
-      ![Alt text](images/input_max_box_height_incorrect.png)
+      ![Alt text](images/input_max_box_height_incorrect.PNG)
 
   - __Input Maximum Box Height Incorrect Repeat = No__
-      ![Alt text](images/input_max_box_height_correct_repeat_no.png)
+      ![Alt text](images/input_max_box_height_correct_repeat_no.PNG)
 
   - __Results Repeat = Yes__
-      ![Alt text](images/repeat_app_yes.png)
+      ![Alt text](images/repeat_app_yes.PNG)
 
   - __Results Repeat = No__
-      ![Alt text](images/repeat_app_no.png)
+      ![Alt text](images/repeat_app_no.PNG)
 
   - __Expected Results__
 
@@ -91,7 +91,7 @@ Command line driven app that accetps user input for a catchment area and runs up
       and compare it to an Excel solution for that iteration. A random iteration sample gives
       the results expected.
 
-      ![Alt text](images/_expected_results.png)
+      ![Alt text](images/_expected_results.PNG)
 
 
 ### Validator Testing 
@@ -118,33 +118,33 @@ The live link can be found here - https://code-institute-org.github.io/love-runn
 - If not available register and sign up for a Heroku account
 - From dashboard click "Create New App" and enter name of app
 
-    ![Alt text](images/Heroko_dashboard_create_new_app.png)
+    ![Alt text](images/Heroko_dashboard_create_new_app.PNG)
 
 - Name the app, select region, click "Create app"
 
-    ![Alt text](images/Heroko_create_app.png)
+    ![Alt text](images/Heroko_create_app.PNG)
 
 - Name the app, select region, click "Create app"
 
-    ![Alt text](images/Heroko_connect_app_to_github_repository.png)
+    ![Alt text](images/Heroko_connect_app_to_github_repository.PNG)
 
 - Click Github, search for your Github repository
 
-    ![Alt text](images/Heroko_connect_app_to_github_repository.png)
+    ![Alt text](images/Heroko_connect_app_to_github_repository.PNG)
 
 - Using this already deployed app as an example, on the dashboard click on "Settings" and navigate  to "Buildpacks and add these items in this order while clicking "Add buildpack".
 
-    ![Alt text](images/Heroko_settings_buildpacks.png)
+    ![Alt text](images/Heroko_settings_buildpacks.PNG)
 
 - By now you should be connected to Github, select "Deploy" from dashboard, and then click "Deploy branch" from "Manual deploy" section
 
-    ![Alt text](images/Heroko_deploy_app.png)
+    ![Alt text](images/Heroko_deploy_app.PNG)
 
 - Once successfully deployed, open app in browser terminal
 
-    ![Alt text](images/Heroku_once_deployed_open_app.png)
+    ![Alt text](images/Heroku_once_deployed_open_app.PNG)
 
-    ![Alt text](images/Heroku_running_app.png)
+    ![Alt text](images/Heroku_running_app.PNG)
 
 
 ## Credits 
