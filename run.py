@@ -39,20 +39,14 @@ def get_box_culvert_options():
     """
 
     max_box_height = 0
-
     query = ""
-
     query2 = ""
 
     # fetch all properties of catchment
     catchment_area_properties = get_catchment_area_properties()
-
     catchment_area = catchment_area_properties[0]
-
     tc_vs_area = catchment_area_properties[1]
-
     runoff_coefficient = catchment_area_properties[2]
-
     assumed_flow_velocity = 5.0
 
     message = (
@@ -64,25 +58,17 @@ def get_box_culvert_options():
     )
 
     while True:
-
         try:
-
-            query2 = input(message)
-
+            query2 = input(message).strip()
             if not query2:
-
                 assumed_flow_velocity = 5.0
-
                 break
 
             for (
                 char
             ) in query2:  # replace ',' with '.' as decimal symbol if needed
-
                 if char == ",":
-
                     query2 = query2.replace(",", ".")
-
                     print(
                         "\nComma detetected as decimal place and replaced "
                         "with '.'"
@@ -91,19 +77,15 @@ def get_box_culvert_options():
             number_of_decimal_places = []
 
             for char in query2:  # count number of decimal symbols in input
-
                 if char == ".":
-
                     number_of_decimal_places.append(char)
 
             if len(number_of_decimal_places) > 1:
-
                 print(
                     "\nThousand's separator detected and not allowed."
                     "Value can be 2.5 to 8.0. For example, 2.500 is "
                     "\ninterpreted as 2.5 ft/s not 2500 ft/s. or 2,500.0"
                     "will be interpreted as 2500.0 ft/s and above 8.0 ft/s\n")
-
                 raise ValueError
 
             query2 = ast.literal_eval(query2)
@@ -111,168 +93,122 @@ def get_box_culvert_options():
             if (not isinstance(query2, float)) and (
                 not isinstance(query2, int)
             ):
-
                 raise ValueError
-
             assumed_flow_velocity = query2
 
             if float(query2) < 2.5 or float(query2) > 8.0:
-
                 print("")
-
                 print("Enter value between 2.5 and 8.0")
-
                 print("")
-
-                query2 = input(message)
-
+                query2 = input(message).strip()
                 continue
 
             assumed_flow_velocity = float(query2)
-
             break
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("Invalid input. Must be number between 2.5 and 8.0\n")
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             return
 
     while True:
-
         scenario = ""
-
         try:
             str_max_box_height = input(
                 "\nAt this culvert location, what is the "
                 "maximum height up to 10 the box culvert can be: "
-            )
+            ).strip()
 
             if not str_max_box_height:
-
                 raise ValueError  # user hit enter without a value
 
             for (
                 char
             ) in str_max_box_height:  # check is integer whole number was input
-
                 if char == ",":
-
                     raise ValueError
 
             str_max_box_height = ast.literal_eval(str_max_box_height)
-
             if not isinstance(str_max_box_height, int):
-
                 raise ValueError
 
             if int(str_max_box_height) < 4 or int(str_max_box_height) > 10:
-
                 if int(str_max_box_height) < 4:
-
                     scenario = "1"
-
                 elif int(str_max_box_height) > 10:
-
                     scenario = "2"
-
                 match scenario:
-
                     case "1":
-
                         while True:
-
                             try:
-
                                 query = input(
                                     "Box culverts should have a minimum "
                                     "height of 4 ft. Would you like to use a "
                                     "different height (y/n): "
-                                )
+                                ).strip()
 
                                 if query in set(["y", "Y"]):
-
                                     break
-
                                 if query in set(["n", "N"]):
-
                                     print(
                                         "Try circular pipe instead. This "
                                         "application is for box culverts "
                                         "only.")
-
                                     return
-
                                 raise ValueError
 
-                            except ValueError:
-
+                            except (ValueError, SyntaxError):
                                 print("\nInvalid input. Must be y or n\n")
-
                                 continue
 
+                            except KeyboardInterrupt:
+                                print("Interrupted, exiting application")
+                                sys.exit(0)
                         continue
 
                     case "2":
-
                         while True:
-
                             try:
-
                                 query = input(
                                     "\nPrecast box culverts should not be "
                                     "more than 10 ft tall due to roadway lane"
                                     " widths while being delivered.\nWould you"
-                                    " like to use a different height (y/n):")
+                                    " like to use a different height (y/n):").strip()
 
                                 if query in set(["y", "Y"]):
-
                                     break
-
                                 if query in set(["n", "N"]):
-
                                     print(
                                         "Try circular pipe instead. This "
                                         "application is "
                                         "for box culverts only.")
-
                                     return
-
                                 raise ValueError
 
-                            except ValueError:
-
+                            except (ValueError, SyntaxError):
                                 print("\nInvalid input. Must be y or n\n")
-
                                 continue
 
+                            except KeyboardInterrupt:
+                                print("Interrupted, exiting application")
+                                sys.exit(0)
                         continue
             else:
-
                 max_box_height = int(str_max_box_height)
-
                 print(" ")
-
                 break
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print(
                 "\nInvalid input. Must be increments of ft. from 4, 5, 6,...10"
             )
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             return
 
     # Manning's formula for open channel flow in culvert structures and
@@ -286,11 +222,8 @@ def get_box_culvert_options():
     # P = Wetted perimeter (ft.) --> wetted_perimeter
 
     n = 0.012  # value for concrete
-
     slopes = []
-
     slopes = [round(0.0120 + (s * 0.0005), 4) for s in range(1, 37)]
-
     barrel_count = 0
 
     # vvvv begin main algorithim vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -301,16 +234,13 @@ def get_box_culvert_options():
     # dictionary with key=Tc, value=(width,height)
 
     print(f"Catchment area size = {catchment_area} acres")
-
     print(
         f"Composite runoff coefficient for this catchment area = \
         {runoff_coefficient}"
     )
-
     print(
         f"assumed flow velocity in box culvert = {assumed_flow_velocity} ft/s"
     )
-
     print("")
 
     box_dimen_vs_flow_capacity = {}
@@ -320,7 +250,6 @@ def get_box_culvert_options():
 
     # this is the number of barrels for each box dimension
     box_dimen_number_of_barrels = {}
-
     s_barrels = {}
 
     for time_of_concentration_in_minutes in range(10, 110, 10):
@@ -338,13 +267,10 @@ def get_box_culvert_options():
                 # added to dictionary of solutions{} as (5,4):3
 
                 box_flow_area = span * (box_height - 1.5)
-
                 wetted_perimeter = (box_height - 1.5) * 2 + span
-
                 hydraulic_radius = box_flow_area / wetted_perimeter
 
                 for slope in slopes:
-
                     flow_capactiy = round(
                         (1.486 / n)
                         * box_flow_area
@@ -369,26 +295,21 @@ def get_box_culvert_options():
                 box_dimen_vs_flow_capacity.update(
                     {(span, box_height): s_barrels}
                 )
-
                 number_of_barrels = (
                     []
                 )  # list of all barrel counts in slope range
-
                 barrel_count_vs_frequency = {}
 
                 for key in s_barrels.items():
-
                     number_of_barrels.append(key[1])
 
                 # iterate thru width number of required barrels 1 to 10.
                 for x in range(1, 11):
                     # typically not more than 6 barrels
                     if number_of_barrels[x] == 0:
-
                         continue
 
                     if number_of_barrels.count(x) == 0:
-
                         continue
 
                     barrel_count_vs_frequency.update(
@@ -414,26 +335,20 @@ def get_box_culvert_options():
                 s_barrels = {}
 
         barrel_count = box_dimen_number_of_barrels.get((span, box_height))
-
         most_econonomical_design = min(
             box_dimen_total_cross_sectional_area,
             key=box_dimen_total_cross_sectional_area.get,
         )
 
         design_span = most_econonomical_design[0]
-
         design_height = most_econonomical_design[1]
-
         message_pt1 = f"Most econonomical design for Tc = \
         {time_of_concentration_in_minutes} is"
-
         message_pt2 = f" {barrel_count} - {design_span}  ft (span) x \
         {design_height} ft (height) "
 
         print(message_pt1 + message_pt2)
-
         box_dimen_total_cross_sectional_area = {}
-
         box_dimen_number_of_barrels = {}
 
     # ^^^^^^^^^^^^^ end main algorithm ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -441,37 +356,26 @@ def get_box_culvert_options():
     print("")
 
     while True:
-
         try:
-
             query1 = input(
                 "Do you have any more catchments to consider (y/n): "
-            )
+            ).strip()
 
             if not query1:
                 raise ValueError
-
             if query1 in set(["y", "Y"]):
-
                 get_box_culvert_options()
-
             elif query1 in set(["n", "N"]):
-
                 return
-
             else:
                 raise ValueError
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("\nInvalid input.")
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             return
 
 
@@ -480,18 +384,14 @@ def get_catchment_area_properties(flow_velocity=None):
     The catchment charactersistics for the catchment of interest are
     calculated based on user input of catchment area
     """
-
     while True:
-
         try:
-
             str_catchment_area = input(
                 "Input size of catchment in acres. "
                 "Maximum area is 200 acres: "
-            )
+            ).strip()
 
             if not str_catchment_area:
-
                 raise ValueError
 
             for (
@@ -499,16 +399,12 @@ def get_catchment_area_properties(flow_velocity=None):
             ) in (
                 str_catchment_area
             ):  # replace ',' with '.' as decimal symbol if needed
-
                 if char == ",":
-
                     str_catchment_area = str_catchment_area.replace(",", ".")
-
                     print(
                         "\nComma detetected as decimal place and replaced "
                         "with '.'"
                     )
-
                     break
 
             number_of_decimal_places = []
@@ -520,7 +416,6 @@ def get_catchment_area_properties(flow_velocity=None):
             ):  # count number of decimal symbols in input
 
                 if char == ".":
-
                     number_of_decimal_places.append(char)
 
             if len(number_of_decimal_places) > 1:
@@ -539,7 +434,6 @@ def get_catchment_area_properties(flow_velocity=None):
             if (not isinstance(str_catchment_area, float)) and (
                 not isinstance(str_catchment_area, int)
             ):
-
                 raise ValueError
 
             catchment_area = float(str_catchment_area)
@@ -551,26 +445,19 @@ def get_catchment_area_properties(flow_velocity=None):
                     "\nInvalid input, size must be acres a whole number\n "
                     "or decimal greater than zero and not more than 200 acres"
                 )
-
                 continue
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print(
                 "\nInvalid input, size must be acres a whole number "
                 "or decimal."
             )
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             sys.exit(0)
-
         else:
-
             break
 
     catchment_area = float(round(catchment_area, 1))
@@ -583,19 +470,14 @@ def get_catchment_area_properties(flow_velocity=None):
     d = 9.76
 
     if flow_velocity is None:
-
         assumed_flow_velocity = 5.0
-
     else:
         assumed_flow_velocity = flow_velocity
-
     print(" ")
 
     # call sub-function to compute runoff coefficient
     runoff_coefficient = get_runoff_coefficient()
-
     tc_vs_area = {}
-
     tc_vs_area = {
         time_of_concentration_in_minutes: round(
             (
@@ -621,80 +503,55 @@ def get_runoff_coefficient():
     Manual and stores in a global variable since it is a critical value that
     needs to be available throughout the application.
     """
-
     # Watershed relief characteristics.
-
     relief_component = 0.0
-
     print("[1] - Extreme: Steep, rugged terrain with average slopes above 30%")
-
     print("[2] - High: Hilly, with average slopes of 10-30%")
-
     print("[3] - Normal: Rolling, with average slopes of 5-10%")
-
     print("[4] - Low: Relatively flat land, with average slopes of 0-5%\n")
 
     while True:
-
         try:
             str_cr = input(
                 "What are the watershed relief characteristics of"
                 " this catchment area. Select from above: "
-            )
+            ).strip()
 
             if not str_cr:
-
                 raise ValueError  # user hit enter without a value
 
             if (
                 len(str_cr) != 1
             ):  # test for leading whitespace, decimal point or negative number
-
                 raise ValueError
 
             if not str_cr.isdigit():  # is user input numerical
-
                 raise ValueError
 
             if int(str_cr) < 1 or int(str_cr) > 4:
-
                 print("\nNot a valid selection. Selection not available.\n")
-
                 continue
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("\nInvalid input. Must be a single digit from 1, 2, 3, 4\n")
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             sys.exit(0)
 
         else:
             print(" ")
-
             break
 
     match str_cr:
-
         case "1":
-
             relief_component = 0.315
-
         case "2":
-
             relief_component = 0.24
-
         case "3":
-
             relief_component = 0.17
-
         case "4":
-
             relief_component = 0.11
 
     # Watershed soil infiltration characteristics.
@@ -704,82 +561,55 @@ def get_runoff_coefficient():
     print(
         "[1] - Extreme: No effective soil cover; either rock or thin soil "
         "mantle of negligible infiltration capacity")
-
     print(
         "[2] - High: Slow to take up water, clay or shallow loam soils of low"
         " infiltration capacity or poorly drained"
     )
-
     print(
         "[3] - Normal: Normal; well drained light or medium textured soils, "
         "sandy loams"
     )
-
     print(
         "[4] - Low: Deep sand or other soil that takes up water readily; "
         "very light, well-drained soils\n"
     )
 
     while True:
-
         try:
             str_ci = input(
                 "What are the watershed soil infiltration characteristics "
-                "of this catchment area. Select from above: ")
+                "of this catchment area. Select from above: ").strip()
 
             if not str_ci:
-
                 raise ValueError  # user hit enter without a value
-
             if (
                 len(str_ci) != 1
             ):  # leading whitespace in entry or negative number
-
                 raise ValueError
-
             if not str_ci.isdigit():  # is user input numerical
-
                 raise ValueError
-
             if int(str_ci) < 1 or int(str_ci) > 4:
-
                 print("\nNot a valid selection. Selection not available.\n")
-
                 continue
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("\nInvalid input. Must be a single digit from 1, 2, 3, 4\n")
-
             continue
-
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             sys.exit(0)
-
         else:
             print(" ")
-
             break
 
     match str_ci:
-
         case "1":
-
             infiltration_component = 0.14
-
         case "2":
-
             infiltration_component = 0.10
-
         case "3":
-
             infiltration_component = 0.07
-
         case "4":
-
             infiltration_component = 0.05
 
     # Watershed Vegetal cover characteristics.
@@ -787,166 +617,113 @@ def get_runoff_coefficient():
     vegetal_component = 0.0
 
     print("[1] - Extreme: No effective plant cover, bare or very sparse cover")
-
     print(
         "[2] - High: Poor to fair; clean cultivation, crops or poor natural "
         "cover, less than 20% of drainage area has good cover")
-
     print(
         "[3] - Normal: Fair to good; about 50% of area in good grassland or "
         "woodland, not more than 50% of area in cultivated crops")
-
     print(
         "[4] - Low: Good to excellent; about 90% of drainage area in good "
         "grassland, woodland, or equivalent cover\n")
 
     while True:
-
         try:
             str_cv = input(
                 "What are the watershed vegetation characteristics of this "
                 "catchment area. Select from above: "
-            )
+            ).strip()
 
             if not str_cv:
-
                 raise ValueError  # user hit enter without a value
-
             if (
                 len(str_cv) != 1
             ):  # leading whitespace in entry or negative number
-
                 raise ValueError
 
             if not str_cv.isdigit():  # is user input numerical
-
                 raise ValueError
 
             if int(str_cv) < 1 or int(str_cv) > 4:
-
                 print("\nNot a valid selection. Selection not available.\n")
-
                 continue
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("\nInvalid input. Must be a single digit from 1, 2, 3, 4\n")
-
             continue
-
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             sys.exit(0)
-
         else:
             print(" ")
-
             break
 
     match str_cv:
-
         case "1":
-
             vegetal_component = 0.14
-
         case "2":
-
             vegetal_component = 0.10
-
         case "3":
-
             vegetal_component = 0.07
-
         case "4":
-
             vegetal_component = 0.05
 
     # Watershed surface storage characteristics.
-
     surface_storage_component = 0.0
-
     print(
         "[1] - Extreme: Negligible; surface depressions few and shallow, "
         "drainageways steep and small, no marshes")
-
     print(
         "[2] - High: Well-defined system of small drainageways, no ponds "
         "or marshes"
     )
-
     print(
         "[3] - Normal: Normal; considerable surface depression, e.g., storage "
         "lakes and ponds and marshes"
     )
-
     print(
         "[4] - Low: Much surface storage, drainage system not sharply "
         "defined; large floodplain storage, large number of ponds or  "
         "marshes\n")
 
     while True:
-
         try:
             str_cs = input(
                 "What are the watershed surface storage characteristics of "
                 "this catchment area. Select from above: "
-            )
+            ).strip()
 
             if not str_cs:
-
                 raise ValueError  # user hit enter without a value
-
             if (
                 len(str_cs) != 1
             ):  # leading whitespace in entry or negative number
-
                 raise ValueError
-
             if not str_cs.isdigit():  # is user input numerical
-
                 raise ValueError
-
             if int(str_cs) < 1 or int(str_cs) > 4:
-
                 print("\nNot a valid selection. Selection not available.\n")
-
                 continue
 
-        except ValueError:
-
+        except (ValueError, SyntaxError):
             print("\nInvalid input. Must be a single digit from 1, 2, 3, 4\n")
-
             continue
 
         except KeyboardInterrupt:
-
             print("Interrupted, exiting application")
-
             sys.exit(0)
-
         else:
             print(" ")
-
             break
 
     match str_cs:
-
         case "1":
-
             surface_storage_component = 0.11
-
         case "2":
-
             surface_storage_component = 0.09
-
         case "3":
-
             surface_storage_component = 0.07
-
         case "4":
-
             surface_storage_component = 0.05
 
     runoff_coefficient = round(
@@ -956,7 +733,6 @@ def get_runoff_coefficient():
         + surface_storage_component,
         2,
     )
-
     return runoff_coefficient
 
 
@@ -967,4 +743,5 @@ def main():
     get_box_culvert_options()
 
 
-main()
+if __name__ == "__main__":
+    main()
