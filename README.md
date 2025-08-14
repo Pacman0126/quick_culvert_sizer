@@ -11,7 +11,77 @@ Here is a flowchart of the process:
 
 ![Alt text](images/flowhart.PNG)
 
+## Data Model
 
+I have also used [Mermaid](https://mermaid.live) with ChatGPT to generate an interactive ERD of the project.
+
+```mermaid
+erDiagram
+    CATCHMENT ||--|| WATERSHED_CHARACTERISTICS : "uses → builds C"
+    CATCHMENT ||--o{ TC_DEMAND : "produces per Tc (10–100 min)"
+    DESIGN_SCENARIO ||--|| CATCHMENT : "evaluated for"
+    DESIGN_SCENARIO ||--o{ SLOPE : "iterates 1.25%–3.00%"
+    DESIGN_SCENARIO ||--o{ BOX_DIMENSION : "tries spans & heights"
+    BOX_DIMENSION ||--o{ BARREL_REQUIREMENT : "per-slope barrels"
+    TC_DEMAND ||--o{ DESIGN_CHOICE : "1 per Tc (most economical)"
+    BOX_DIMENSION ||--o{ DESIGN_CHOICE : "selected when minimal area"
+    BARREL_REQUIREMENT }o--|| SLOPE : "at"
+    DESIGN_CHOICE }o--|| BARREL_REQUIREMENT : "summarizes (mode)"
+
+    CATCHMENT {
+      float area_acres
+      float runoff_coefficient  "from components"
+    }
+
+    WATERSHED_CHARACTERISTICS {
+      float relief_component
+      float infiltration_component
+      float vegetal_component
+      float surface_storage_component
+      float runoff_coefficient  "sum of components"
+    }
+
+    DESIGN_SCENARIO {
+      float assumed_flow_velocity  "default 5.0 ft/s"
+      int   max_box_height         "4–10 ft"
+      float manning_n              "0.012 (concrete)"
+    }
+
+    SLOPE {
+      float slope_fraction         "0.0120..0.0300"
+    }
+
+    TC_DEMAND {
+      int   tc_minutes             "10..100 step 10"
+      float required_Q_over_V      "from NOAA coeffs, area, C, V"
+    }
+
+    BOX_DIMENSION {
+      int   span_ft                "span ≥ height, ≤ 10"
+      int   height_ft              "4..max_box_height"
+      float flow_area_ft2          "span*(h-1.5)"
+      float wetted_perimeter_ft    "(h-1.5)*2 + span"
+      float hydraulic_radius_ft    "A/P"
+    }
+
+    BARREL_REQUIREMENT {
+      int   barrels_needed         "ceil(Qrequired / (Qcap/V))"
+      float Q_capacity_cfs         "Manning per slope & section"
+      float required_cs_area_ft2   "Q_capacity / V"
+    }
+
+    DESIGN_CHOICE {
+      int   tc_minutes
+      int   barrels_selected       "mode across slopes"
+      int   chosen_span_ft
+      int   chosen_height_ft
+      float total_area_ft2         "barrels*span*height"
+      boolean most_economical      "min total_area for Tc"
+    }
+
+```
+
+source: [mermaid](https://mermaid.live/edit#pako:eNqFVttu4zYQ_RWCwC6crKNIjt3YfnNlozGwsTe2mxaFAYKRRjZRSXRJKpdNAvSpwL5uf6H9sXxJRxfLsRSnfkkkcs6cOTwz1CP1pA-0T0ENBV8pHi1jgj93sHAvLkeTBXl6Ojl5eiK_DBaj2fxiNGTuxWA2cPFpPF-M3TnpkyVNNGjy8td3cpOI0NfEXdK3cOQjWbhsOLocTIZZ3EZJP_EwdgOKLDzScOyXP_92bJtEIj7aggxH8_FPEzZ3R5PBbDzdUtphp1Bwy8OEG_BJINV7kUhi_nn6ZZRFCQMKgzRxrFbnA-Y-s2z7w_-E_zj9lQ3HmHk-nk4yGKMEYugNjzX5SNYgVmujtyj727cYg9ls9JnNRlc_j2ejsgrU4USHcgPkhisFYQmy060AKLi5F9Oxm9filCpGUhsCnoxlJDweHr3LpA6kIQQvVfJuDXF6EiLiIeEKeAlUZ_8ss0PZSctNRcYiQ7HxgAA6iSKuxFeUE8vwIeNe9dJj_oKQIJTcZMwY9xTo_fcqiWUQME9CEAhPQGwIZgiUjIgno42M8U0p8PM2zWGnV9Li8QhI4Quo_VURByI0aC4h40N7bmEFhoeHlnWiAu4B00YqvoJD294uE4UkMniv0Kq7q6pqhACf4dMdu4VQesI8pMg-BDwJDelYNgnMaQlMsGZMTSJ-z27kPcvbgGx_S9rOehtjdhF5qojHsYhXLCZ7vyW1LdtpkQY6GU_XwFGthtxuFeZZA7FAcS8VvwpnWxb-PbPtGtiuxx73KzIewy5I0jmxz89BsHRaaQMb4tjVuhT8kQiFGl4xeQuKXW_jMg9OpoMByU5NNzMPN4nbJNc1WvtdW6GWzhwWGEKq0qUL5OXbv8U0auL__-xRzOPz1RoCHpZl7R9ktbjMF1nrBaZVzXzcWJ84VueoGnQHBgcLw0ElIjxQVSRe0mL_cYt8ymqqBq4ffIWuEx5T3BeJLgMHp1_qitVnS0W2YrqyGMDHQbcj74EIG1fbgyOnpHHl8c3p9VGtlCuGCzxtCuYF-hXEZe7mbBrns_wj0ZB58aBBPP1ayiXdgSOF60OtW0zUg259u-ZyvG8Jp3OW4PyUWueEay3traWGmBVme3OtNNJ-hUamA65mkyUt2Bxnbqk67EbKENC_6UXGdhdZSVjEr4DTCx-vvVIk2qQRqIgLH79rMm3wgl5DBEua3jA-V7-ne9N9PDFy_hB7tG9UAk2abHz8Gii-hLYvkSDtP9J72ndabavT6fbaTrfXOsMZctakD7Tf7lrn7V7vvN3t_tBqtZzuc5N-lRIBbKt73skQfsuec0Alk9Wa9gMeanxaqZRosQKxD8qVSWxov_f8HzjA67E)
 
 ## Features 
 
