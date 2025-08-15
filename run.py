@@ -345,7 +345,7 @@ def get_box_culvert_options():
 
         msg = (f"Most econonomical design for Tc = "
                f"{time_of_concentration_in_minutes} is"
-               f" {barrel_count} - {design_span}  ft (span) x"
+               f" {barrel_count} - {design_span} ft (span) x"
                f" {design_height} ft (height) "
                )
         print(msg)
