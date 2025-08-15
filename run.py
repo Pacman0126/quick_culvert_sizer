@@ -176,7 +176,8 @@ def get_box_culvert_options():
                                     "\nPrecast box culverts should not be "
                                     "more than 10 ft tall due to roadway lane"
                                     " widths while being delivered.\nWould you"
-                                    " like to use a different height (y/n):").strip()
+                                    " like to use a different height "
+                                    "(y/n):").strip()
 
                                 if query in set(["y", "Y"]):
                                     break
