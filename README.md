@@ -261,9 +261,9 @@ The Python terminal window should now be connected and deployed to Heroku!
 
 ## Credits 
 
-Texas Department of Transportation - Hydraulic Design Manual
-NOAA National Weather Service https://hdsc.nws.noaa.gov/pfds/
-Code Institute
+- Texas Department of Transportation - Hydraulic Design Manual
+- NOAA National Weather Service https://hdsc.nws.noaa.gov/pfds/
+- Code Institute
 
 ### Content 
 
