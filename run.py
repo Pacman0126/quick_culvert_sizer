@@ -50,11 +50,11 @@ def get_box_culvert_options():
     assumed_flow_velocity = 5.0
 
     message = (
-        f"The default assumed flow velocity for box culverts is \
-        {assumed_flow_velocity} ft/s.\nA minimum of 2.5 ft/s is  \
-        required to be self cleaning, a maximum of 8.0 ft/s is \
-        allowed to prevent downstream erosion damage.\n Enter new \
-        value or press <enter> to continue with default value: "
+        f"The default assumed flow velocity for box culverts is "
+        f"{assumed_flow_velocity} ft/s.\nA minimum of 2.5 ft/s is "
+        f"required to be self cleaning, a maximum of 8.0 ft/s is \n"
+        f"allowed to prevent downstream erosion damage.\nEnter new "
+        f"value or press <enter> to continue with default value: "
     )
 
     while True:
@@ -234,10 +234,9 @@ def get_box_culvert_options():
     # dictionary with key=Tc, value=(width,height)
 
     print(f"Catchment area size = {catchment_area} acres")
-    print(
-        f"Composite runoff coefficient for this catchment area = \
-        {runoff_coefficient}"
-    )
+    msg = (f"Composite runoff coefficient for this "
+           f"catchment area = {runoff_coefficient}")
+    print(msg)
     print(
         f"assumed flow velocity in box culvert = {assumed_flow_velocity} ft/s"
     )
@@ -342,12 +341,14 @@ def get_box_culvert_options():
 
         design_span = most_econonomical_design[0]
         design_height = most_econonomical_design[1]
-        message_pt1 = f"Most econonomical design for Tc = \
-        {time_of_concentration_in_minutes} is"
-        message_pt2 = f" {barrel_count} - {design_span}  ft (span) x \
-        {design_height} ft (height) "
 
-        print(message_pt1 + message_pt2)
+        msg = (f"Most econonomical design for Tc = "
+               f"{time_of_concentration_in_minutes} is"
+               f" {barrel_count} - {design_span}  ft (span) x"
+               f" {design_height} ft (height) "
+               )
+        print(msg)
+
         box_dimen_total_cross_sectional_area = {}
         box_dimen_number_of_barrels = {}
 
