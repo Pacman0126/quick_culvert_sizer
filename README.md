@@ -167,7 +167,7 @@ Command line driven app that accetps user input for a catchment area and runs up
 ### Validator Testing 
 
 - PyCodeStyle
-  - No significant errors according to PyCodeStyle Linting. A number of 'line too long' messages. Doing research on Google, this seems to be a legacy message from the past which is no longer relevant today.
+  - No significant errors according to PyCodeStyle Linting.
 
 The [run.py](run.py) file was fully validated using the PyCodeStyle and the Code Institute [PEP8 Code Validator](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/Pacman0126/quick_culvert_sizer/refs/heads/main/run.py)
 
