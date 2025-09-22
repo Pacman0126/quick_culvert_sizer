@@ -102,6 +102,10 @@ Command line driven app that accetps user input for a catchment area and runs up
 
       ![Alt text](images/catch_comma_based_decimal_input.PNG)
 
+  - __Catch Thousands Separator Input__
+
+      ![Alt text](images/catch_thousands_separator_input.PNG)
+
   - __Input Catchment Area Correct__
 
       ![Alt text](images/input_catchment_area_correct.PNG)
