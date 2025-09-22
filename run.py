@@ -359,9 +359,9 @@ def get_box_culvert_options():
 
     while True:
         try:
-            query1 = input(
-                "Do you have any more catchments to consider (y/n): "
-            ).strip()
+            print("Do you have any more catchments to consider (y/n): ",
+                  end="", flush=True)
+            query1 = input().strip()
 
             if not query1:
                 raise ValueError
