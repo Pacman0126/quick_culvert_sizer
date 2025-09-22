@@ -82,10 +82,11 @@ def get_box_culvert_options():
 
             if len(number_of_decimal_places) > 1:
                 print(
-                    "\nThousand's separator detected and not allowed."
-                    "Value can be 2.5 to 8.0. For example, 2.500 is "
-                    "\ninterpreted as 2.5 ft/s not 2500 ft/s. or 2,500.0 "
-                    "will be interpreted as 2500.0 ft/s and above 8.0 ft/s\n")
+                    "\nThousand's separator detected and not allowed. "
+                    "Value can be 2.5 to 8.0. "
+                    "\nFor example, 2.500 is interpreted as 2.5 ft/s not "
+                    "\n2500 ft/s. or 2,500.0 will be interpreted as "
+                    "\n2500.0 ft/s and above 8.0 ft/s\n")
                 raise ValueError
 
             query2 = ast.literal_eval(query2)
@@ -423,7 +424,7 @@ def get_catchment_area_properties(flow_velocity=None):
             if len(number_of_decimal_places) > 1:
 
                 print(
-                    "\nThousand's separator detected and not allowed."
+                    "\nThousand's separator detected and not allowed. "
                     "Value can be up to 200.0. For example, \n2.000 is "
                     "interpreted as 2 acres not 2000 acres or 2,500.0 is "
                     "interpreted as 2500.0 acres \nand beyond the 200.0 "
