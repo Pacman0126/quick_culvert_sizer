@@ -84,7 +84,7 @@ def get_box_culvert_options():
                 print(
                     "\nThousand's separator detected and not allowed."
                     "Value can be 2.5 to 8.0. For example, 2.500 is "
-                    "\ninterpreted as 2.5 ft/s not 2500 ft/s. or 2,500.0"
+                    "\ninterpreted as 2.5 ft/s not 2500 ft/s. or 2,500.0 "
                     "will be interpreted as 2500.0 ft/s and above 8.0 ft/s\n")
                 raise ValueError
 

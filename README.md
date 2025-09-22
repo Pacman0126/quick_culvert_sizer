@@ -98,6 +98,10 @@ Command line driven app that accetps user input for a catchment area and runs up
 
       ![Alt text](images/input_catchment_area_incorrect.PNG)
 
+  - __Catch Incorrect Decimal Sytem__
+
+      ![Alt text](images/catch_comma_based_decimal_input.PNG)
+
   - __Input Catchment Area Correct__
 
       ![Alt text](images/input_catchment_area_correct.PNG)
