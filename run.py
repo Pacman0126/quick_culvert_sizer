@@ -425,9 +425,9 @@ def get_catchment_area_properties(flow_velocity=None):
 
                 print(
                     "\nThousand's separator detected and not allowed. "
-                    "Value can be up to 200.0. For example, \n2.000 is "
-                    "interpreted as 2 acres not 2000 acres or 2,500.0 is "
-                    "interpreted as 2500.0 acres \nand beyond the 200.0 "
+                    "\nValue can be up to 200.0. For example, 2.000 is "
+                    "\ninterpreted as 2 acres not 2000 acres or 2,500.0 is "
+                    "\ninterpreted as 2500.0 acres \nand beyond the 200.0 "
                     "acre limit.")
 
                 raise ValueError
